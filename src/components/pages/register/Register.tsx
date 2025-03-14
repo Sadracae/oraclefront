@@ -59,7 +59,7 @@ export default function Register() {
         <div className="hidden md:flex md:w-1/2 items-center justify-center p-8">
           <img
             src="/placeholder.svg?height=500&width=400"
-            alt="Registration illustration"
+            alt=""
             className="max-w-full h-auto"
           />
         </div>

@@ -17,6 +17,7 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+
 import { TaskItem } from "@/components/pages/home/TaskItem"
 import {
   format,
@@ -33,6 +34,7 @@ import Sprints from "./Sprints"
 
 interface Task {
   id: string
+  
   title: string
   description: string
   priority: string
@@ -53,7 +55,7 @@ interface SprintType {
   tasks: Task[]
 }
 
-export default function CalendarPage() {
+export default function SchedulePage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [view, setView] = useState<"month" | "week" | "day">("month")
@@ -61,7 +63,7 @@ export default function CalendarPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [filter, setFilter] = useState<"all" | "sprints" | "tasks">("all")
 
-  // Sample data
+  // Sample data with more tasks
   const sprintsData: SprintType[] = [
     {
       id: "sprint1",
@@ -192,16 +194,231 @@ export default function CalendarPage() {
         },
       ],
     },
+    {
+      id: "sprint4",
+      name: "Sprint 4: Notifications & Reminders",
+      startDate: "2023-08-12",
+      endDate: "2023-08-25",
+      progress: 0,
+      status: "Planned",
+      tasks: [
+        {
+          id: "task10",
+          title: "Email Notification System",
+          description: "Implement email notifications for task assignments and deadlines",
+          priority: "High",
+          status: "Not Started",
+          date: "2023-08-14",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "Jane Smith",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+        {
+          id: "task11",
+          title: "In-App Notification UI",
+          description: "Design and implement in-app notification center",
+          priority: "Moderate",
+          status: "Not Started",
+          date: "2023-08-16",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "John Doe",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+        {
+          id: "task12",
+          title: "Reminder System",
+          description: "Implement task reminders with customizable timing options",
+          priority: "High",
+          status: "Not Started",
+          date: "2023-08-20",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "Mike Johnson",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+      ],
+    },
+    {
+      id: "sprint5",
+      name: "Sprint 5: Mobile Optimization",
+      startDate: "2023-08-26",
+      endDate: "2023-09-08",
+      progress: 0,
+      status: "Planned",
+      tasks: [
+        {
+          id: "task13",
+          title: "Mobile UI Improvements",
+          description: "Optimize UI components for mobile devices",
+          priority: "High",
+          status: "Not Started",
+          date: "2023-08-28",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "John Doe",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+        {
+          id: "task14",
+          title: "Offline Mode",
+          description: "Implement offline functionality for mobile users",
+          priority: "Extreme",
+          status: "Not Started",
+          date: "2023-09-01",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "Mike Johnson",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+        {
+          id: "task15",
+          title: "Touch Gestures",
+          description: "Add swipe and touch gesture support for mobile interactions",
+          priority: "Moderate",
+          status: "Not Started",
+          date: "2023-09-05",
+          image: "/placeholder.svg?height=80&width=80",
+          assignee: "Jane Smith",
+          assigneeAvatar: "/placeholder.svg?height=32&width=32",
+        },
+      ],
+    },
   ]
 
-  // Get all tasks from all sprints
-  const allTasks = sprintsData.flatMap((sprint) =>
-    sprint.tasks.map((task) => ({
-      ...task,
-      sprintId: sprint.id,
-      sprintName: sprint.name,
-    })),
-  )
+  // Additional standalone tasks (not part of any sprint)
+  const standaloneTasks: Task[] = [
+    {
+      id: "standalone1",
+      title: "Team Meeting",
+      description: "Weekly team sync to discuss project progress",
+      priority: "Moderate",
+      status: "Not Started",
+      date: "2023-07-07",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "All Team Members",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone2",
+      title: "Client Presentation",
+      description: "Present project progress to the client",
+      priority: "High",
+      status: "Not Started",
+      date: "2023-07-21",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "John Doe",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone3",
+      title: "Code Review",
+      description: "Review and provide feedback on recent code changes",
+      priority: "High",
+      status: "Not Started",
+      date: "2023-07-25",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Mike Johnson",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone4",
+      title: "Security Audit",
+      description: "Perform security audit of the application",
+      priority: "Extreme",
+      status: "Not Started",
+      date: "2023-08-08",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Security Team",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone5",
+      title: "User Testing Session",
+      description: "Conduct user testing with focus group",
+      priority: "High",
+      status: "Not Started",
+      date: "2023-08-15",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Jane Smith",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone6",
+      title: "Performance Optimization",
+      description: "Identify and fix performance bottlenecks",
+      priority: "Moderate",
+      status: "Not Started",
+      date: "2023-08-22",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Mike Johnson",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone7",
+      title: "Documentation Update",
+      description: "Update user and developer documentation",
+      priority: "Low",
+      status: "Not Started",
+      date: "2023-09-04",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "John Doe",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "standalone8",
+      title: "Quarterly Planning",
+      description: "Plan next quarter's development roadmap",
+      priority: "High",
+      status: "Not Started",
+      date: "2023-09-12",
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "All Team Members",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    // Current month tasks (assuming current month is the month when viewing the calendar)
+    {
+      id: "current1",
+      title: "Bug Fixing Session",
+      description: "Address critical bugs reported by users",
+      priority: "High",
+      status: "Not Started",
+      date: new Date().toISOString().split("T")[0], // Today
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Development Team",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "current2",
+      title: "Release Planning",
+      description: "Plan the next release cycle and features",
+      priority: "Moderate",
+      status: "Not Started",
+      date: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split("T")[0], // 2 days from now
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Product Team",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+    {
+      id: "current3",
+      title: "Design Review",
+      description: "Review and finalize new feature designs",
+      priority: "High",
+      status: "Not Started",
+      date: new Date(new Date().setDate(new Date().getDate() + 5)).toISOString().split("T")[0], // 5 days from now
+      image: "/placeholder.svg?height=80&width=80",
+      assignee: "Design Team",
+      assigneeAvatar: "/placeholder.svg?height=32&width=32",
+    },
+  ]
+
+  // Get all tasks from all sprints and standalone tasks
+  const allTasks = [
+    ...sprintsData.flatMap((sprint) =>
+      sprint.tasks.map((task) => ({
+        ...task,
+        sprintId: sprint.id,
+        sprintName: sprint.name,
+      })),
+    ),
+    ...standaloneTasks,
+  ]
 
   // Navigation functions
   const nextMonth = () => setCurrentDate(addMonths(currentDate, 1))
@@ -274,21 +491,21 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex">
-      {/* Sidebar */}
-      <Sidebar
-        userName="Sundar Gurung"
-        userEmail="sundar.gurung360@gmail.com"
-        userAvatar="/placeholder.svg?height=80&width=80"
-      />
+    <div className="min-h-screen bg-[#f8f8fb] flex flex-col">
+      {/* Top Navigation */}
+      <Header day="Tuesday" date="20/06/2023" title = "To" titleSpan = "Do"/>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <Header day="Tuesday" date="20/06/2023" title="Calendar" titleSpan="" />
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <Sidebar
+          userName="Sadrac Aramburo"
+          userEmail="sundargurung360@gmail.com"
+          userAvatar="/placeholder.svg?height=80&width=80"
+        />
 
         {/* Main Content Area */}
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 flex-1">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
               <h2 className="text-xl md:text-2xl font-bold flex items-center">
@@ -412,7 +629,7 @@ export default function CalendarPage() {
                                 handleEventClick("sprint", sprint)
                               }}
                             >
-                              <Sprints />
+                              <Sprints  />
                               {sprint.name}
                             </div>
                           ))}
@@ -485,7 +702,7 @@ export default function CalendarPage() {
                 {filter !== "tasks" && getSprintsForDate(selectedDate).length > 0 && (
                   <div>
                     <h4 className="text-sm font-medium mb-2 flex items-center">
-                      <Sprints/>
+                      <Sprints />
                       Sprints
                     </h4>
                     <div className="space-y-2">
@@ -516,7 +733,7 @@ export default function CalendarPage() {
                   </div>
                 )}
 
-                {/* Tasks for selected date */}
+                {/* Tasks for selected date 
                 {filter !== "sprints" && getTasksForDate(selectedDate).length > 0 && (
                   <div>
                     <h4 className="text-sm font-medium mb-2 flex items-center">
@@ -537,12 +754,7 @@ export default function CalendarPage() {
                               <div className="flex flex-wrap items-center gap-2 mt-2">
                                 <Badge className={getStatusColor(task.status)}>{task.status}</Badge>
                                 <Badge className={getPriorityColor(task.priority)}>{task.priority}</Badge>
-                                {task.sprintName && (
-                                  <div className="text-xs text-gray-500">
-                                    <Sprints />
-                                    {task.sprintName}
-                                  </div>
-                                )}
+                                <Sprints />
                               </div>
                             </div>
                             {task.assignee && (
@@ -559,7 +771,7 @@ export default function CalendarPage() {
                       ))}
                     </div>
                   </div>
-                )}
+                )}*/}
 
                 {filter === "all" &&
                   getSprintsForDate(selectedDate).length === 0 &&
@@ -679,7 +891,7 @@ export default function CalendarPage() {
                 <div>
                   <h4 className="font-medium mb-1">Sprint</h4>
                   <div className="flex items-center">
-                    <Sprints/>
+                    <Sprints />
                     <span>{selectedEvent.data.sprintName}</span>
                   </div>
                 </div>

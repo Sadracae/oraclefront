@@ -6,9 +6,11 @@ import Tasks from './components/pages/home/Tasks';
 import Settings from "./components/pages/home/Settings";
 import CalendarPage from './components/pages/home/Calendar';
 import Sprints from './components/pages/home/Sprints';
+import { ChatButton } from './components/ChatBot';
 
 function App() {
   return (
+    <div>
     <Routes>
       {/* Initial Route (Register Page) */}
       <Route path="/" element={<Register />} />
@@ -21,9 +23,14 @@ function App() {
       <Route path = "/settings" element = {<Settings />} />
       <Route path = "/sprints" element = {<Sprints />} />
       <Route path = "/calendar" element = {<CalendarPage />} />
-
+      
+      
 
     </Routes>
+    <ChatButton />
+    </div>
+    
+    
   );
 }
 

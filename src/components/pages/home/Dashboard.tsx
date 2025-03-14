@@ -122,31 +122,31 @@ export default function Dashboard() {
                     <h3 className="font-medium mb-4">Task Status</h3>
 
                     <div className="flex justify-around items-center">
-                      <ProgressCircle value={84} color="#32CD32" label="Completed" />
-                      <ProgressCircle value={46} color="#4169E1" label="In Progress" />
-                      <ProgressCircle value={13} color="#ff6b6b" label="Not Started" />
+                      <ProgressCircle value={40} color="#32CD32" label="Completed" />
+                      <ProgressCircle value={40} color="#4169E1" label="In Progress" />
+                      <ProgressCircle value={20} color="#ff6b6b" label="Not Started" />
                     </div>
                   </div>
 
                   <div className="bg-white rounded-xl p-4 shadow-sm">
                     <div className="flex items-center gap-2 mb-4">
                       <CircleDot className="text-[#32CD32]" />
-                      <h3 className="font-medium text-gray-700">Completed Task</h3>
+                      <h3 className="font-medium text-gray-700">Completed Tasks</h3>
                     </div>
 
                     <div className="space-y-3">
                       <CompletedTaskItem
-                        title="Walk the dog"
-                        description="Take the dog to the park and bring treats as well."
+                        title="Add New colors to UI"
+                        description="Added new colors to UI for consistency"
                         daysAgo={2}
-                        image="/placeholder.svg?height=80&width=80"
+                        image=""
                       />
 
                       <CompletedTaskItem
                         title="Conduct meeting"
                         description="Meet with the client and finalize requirements."
                         daysAgo={2}
-                        image="/placeholder.svg?height=80&width=80"
+                        image=""
                       />
                     </div>
                   </div>

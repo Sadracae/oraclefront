@@ -18,6 +18,7 @@ interface AddTaskDialogProps {
 }
 
 export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
+  const [taskId, setTaskId] = useState(1)
   const [open, setOpen] = useState(false)
   const [date, setDate] = useState<Date>()
   const [priority, setPriority] = useState<string>("Moderate")
@@ -26,6 +27,9 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
   const [description, setDescription] = useState<string>("")
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
+
+  
+  
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null
@@ -58,6 +62,7 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
 
   const handleSubmit = () => {
     const newTask = {
+      id: taskId,
       title,
       date: date ? format(date, "dd/MM/yyyy") : "",
       priority,
@@ -71,7 +76,8 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
     if (onAddTask) {
       onAddTask(newTask)
     }
-
+    setTaskId(taskId + 1)
+    
     // Reset form
     setTitle("")
     setDate(undefined)

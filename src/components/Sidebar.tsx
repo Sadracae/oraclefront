@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { CircleDot, HelpCircle, LayoutGrid, LogOut, Settings } from "lucide-react"
+import { CircleDot, LayoutGrid, LogOut, Settings } from "lucide-react"
 import { useNavigate, useLocation } from 'react-router-dom';
 
 
@@ -72,17 +72,14 @@ const handleCalendar = () => {
             Dashboard
           </Button>
 
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/20  rounded-xl">
-            <CircleDot className="mr-2 h-5 w-5" />
-            Vital Task
-          </Button>
+         
 
-          <Button onClick={handleSprints} variant="ghost" className="w-full justify-start text-white hover:bg-white/20  rounded-xl">
+          <Button onClick={handleSprints} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/sprints" ? "bg-white/30" : ""}`}>
             <CircleDot className="mr-2 h-5 w-5" />
             Sprints
           </Button>
 
-          <Button onClick={handleCalendar} variant="ghost" className="w-full justify-start text-white hover:bg-white/20  rounded-xl">
+          <Button onClick={handleCalendar} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/calendar" ? "bg-white/30" : ""}`}>
             <CircleDot className="mr-2 h-5 w-5" />
             Calendar
           </Button>
@@ -103,10 +100,7 @@ const handleCalendar = () => {
             Settings
           </Button>
 
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/20 rounded-xl">
-            <HelpCircle className="mr-2 h-5 w-5" />
-            Help
-          </Button>
+         
         </div>
       </nav>
 

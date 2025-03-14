@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Bell, Calendar, Search } from "lucide-react"
+import { Bell, Search } from "lucide-react"
 
 interface HeaderProps {
   date: string
@@ -38,13 +38,8 @@ export function Header({ date, day , title, titleSpan}: HeaderProps) {
       >
         <Bell className="h-5 w-5" />
       </Button>
-      <Button
-        size="icon"
-        variant="outline"
-        className="rounded-full border-gray-200 bg-[#ff6767] text-white hover:bg-[#ff5252]"
-      >
-        <Calendar className="h-5 w-5" />
-      </Button>
+      
+      
       <div className="text-right text-sm">
         <div className="font-medium">{day}</div>
         <div className="text-[#ff6767]">{date}</div>

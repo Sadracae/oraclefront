@@ -49,7 +49,7 @@ export function TaskItem({ title, description, priority, status, date, image }: 
         </div>
 
         <div className="flex-shrink-0">
-          <img src={image || "/placeholder.svg"} alt={title} className="w-16 h-16 rounded-lg object-cover" />
+          <img src={image || "/placeholder.svg"} alt={"."} className="w-16 h-16 rounded-lg object-cover" />
         </div>
       </div>
     </div>
@@ -86,7 +86,7 @@ export function CompletedTaskItem({ title, description, daysAgo, image }: Comple
         </div>
 
         <div className="flex-shrink-0">
-          <img src={image || "/placeholder.svg"} alt={title} className="w-16 h-16 rounded-lg object-cover" />
+          <img src={image || "/placeholder.svg"} alt={"."} className="w-16 h-16 rounded-lg object-cover" />
         </div>
       </div>
     </div>

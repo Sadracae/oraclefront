@@ -5,17 +5,18 @@ import { Button } from "@/components/ui/button"
 import { CircleDot, Trash2, Edit } from "lucide-react"
 import {Header} from "@/components/Header"
 import { AddTaskDialog } from "./AddTask"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface Task {
   id: string
   title: string
+  sprintName: string
   date: string
   description: string
   priority: "Extreme" | "High" | "Moderate" | "Low"
   status: "Not Started" | "In Progress" | "Completed"
   createdOn: string
   image: string
+  storyPoints: number
   objective?: string
   fullDescription?: string
   additionalNotes?: string[]
@@ -24,7 +25,8 @@ interface Task {
 
 export default function Tasks() {
     
-  const [selectedTask, setSelectedTask] = useState<string>("task1");
+  const [selectedTask, setSelectedTask] = useState<string | null>(null);
+
   
   const [tasks, setTasks] = useState<Task[]>([])
 
@@ -33,7 +35,9 @@ export default function Tasks() {
   }
   
 
-  const currentTask = tasks.find((task) => task.id === selectedTask)
+  const currentTask = tasks.find((task) => task.id === selectedTask);
+
+
 
   return (
     <div className="min-h-screen bg-[#f8f8fb] flex flex-col">
@@ -49,37 +53,20 @@ export default function Tasks() {
           userAvatar="/placeholder.svg?height=80&width=80"
         />
 
-<AddTaskDialog onAddTask={handleAddTask} />
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {tasks.length > 0 ? (
-          tasks.map((task, index) => (
-            <Card key={index} className="shadow-md">
-              <CardHeader>
-                <CardTitle>{task.title}</CardTitle>
-                <p className="text-sm text-gray-500">{task.date}</p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm">{task.description}</p>
-                <p className="text-xs text-gray-500 mt-2">Priority: {task.priority}</p>
-                <p className="text-xs text-gray-500">Story Points: {task.storyPoints}</p>
-                <img src={task.image} alt="Task" className="mt-2 w-full h-32 object-cover rounded" />
-              </CardContent>
-            </Card>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No tasks added yet.</p>
-        )}
-      </div>
-
-        {/* Main Content Area
+        
+            
+        
+        {/* Main Content Area */}
         <div className="flex-1 p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Tasks List 
+            {/* Tasks List */}
+            
             <div className="bg-white rounded-xl p-6 shadow-sm">
-              <h2 className="text-xl font-semibold mb-6 border-b pb-2">My Tasks</h2>
+              <h2 className="text-xl font-semibold mb-6 border-b pb-2">My Tasks <AddTaskDialog onAddTask={handleAddTask} /></h2>
 
               <div className="space-y-4">
                 {tasks.map((task) => (
+                  
                   <div
                     key={task.id}
                     className={`border rounded-lg p-4 cursor-pointer transition-colors ${
@@ -87,8 +74,14 @@ export default function Tasks() {
                         ? "border-[#ff6767] bg-[#fff8f8]"
                         : "border-gray-100 hover:border-gray-300"
                     }`}
-                    onClick={() => setSelectedTask(task.id)}
+                    
+                    onClick={() => {
+                      console.log("Clicked Task ID:", task.id); // Debugging
+                      setSelectedTask(task.id);
+                    }}
+                    
                   >
+                    
                     <div className="flex justify-between items-start">
                       <div className="flex items-start gap-3">
                         <CircleDot
@@ -262,7 +255,7 @@ export default function Tasks() {
               </div>
             )}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   )

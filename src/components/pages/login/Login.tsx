@@ -129,7 +129,7 @@ export default function Login() {
 
         {/* Right side - Illustration */}
         <div className=" md:block md:w-1/2 bg-gray-50 p-8 flex items-center justify-center">
-          <img src="/placeholder.svg?height=400&width=400" alt="Login illustration" className="max-w-full h-auto" />
+          <img src="/placeholder.svg?height=400&width=400" alt="" className="max-w-full h-auto" />
         </div>
       </div>
     </div>

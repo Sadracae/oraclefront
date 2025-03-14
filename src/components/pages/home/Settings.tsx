@@ -1,15 +1,20 @@
 
 import { useState } from "react"
+import { useEffect } from "react";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
-import { Search, Bell, Calendar, User, Moon, BellIcon, Shield, HelpCircle, Save } from "lucide-react"
+import { User, Shield, HelpCircle, Save } from "lucide-react"
 import { Sidebar } from "@/components/Sidebar"
 import { Header } from "@/components/Header"
 
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState("account")
+  const [activeTab, setActiveTab] = useState("notifications")
+  
+  useEffect(() => {
+    console.log("Active Tab:", activeTab);
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-[#f8f8fb] flex flex-col">
@@ -48,22 +53,8 @@ export default function Settings() {
                     <span className="hidden md:inline">Account</span>
                     <span className="md:hidden">Account</span>
                   </TabsTrigger>
-                  <TabsTrigger
-                    value="appearance"
-                    className={`rounded-none border-b-2 border-transparent px-3 md:px-4 py-3 data-[state=active]:border-[#ff6767] data-[state=active]:text-[#ff6767] data-[state=active]:shadow-none whitespace-nowrap`}
-                  >
-                    <Moon className="h-4 w-4 mr-2" />
-                    <span className="hidden md:inline">Appearance</span>
-                    <span className="md:hidden">Appear.</span>
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="notifications"
-                    className={`rounded-none border-b-2 border-transparent px-3 md:px-4 py-3 data-[state=active]:border-[#ff6767] data-[state=active]:text-[#ff6767] data-[state=active]:shadow-none whitespace-nowrap`}
-                  >
-                    <BellIcon className="h-4 w-4 mr-2" />
-                    <span className="hidden md:inline">Notifications</span>
-                    <span className="md:hidden">Notif.</span>
-                  </TabsTrigger>
+                 
+                  
                   <TabsTrigger
                     value="privacy"
                     className={`rounded-none border-b-2 border-transparent px-3 md:px-4 py-3 data-[state=active]:border-[#ff6767] data-[state=active]:text-[#ff6767] data-[state=active]:shadow-none whitespace-nowrap`}
@@ -168,4 +159,5 @@ export default function Settings() {
     
   )
 }
+
 

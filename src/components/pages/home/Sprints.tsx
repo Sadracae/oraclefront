@@ -194,21 +194,21 @@ export default function Sprints() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] flex">
-      {/* Sidebar */}
-      <Sidebar
-        userName="Sundar Gurung"
-        userEmail="sundar.gurung360@gmail.com"
-        userAvatar="/placeholder.svg?height=80&width=80"
-      />
+    <div className="min-h-screen bg-[#f8f8fb] flex flex-col">
+      {/* Top Navigation */}
+      <Header day="Tuesday" date="20/06/2023" title = "To" titleSpan = "Do"/>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <Header day="Tuesday" date="20/06/2023" title="Sprints" titleSpan=""/>
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <Sidebar
+          userName="Sadrac Aramburo"
+          userEmail="sundargurung360@gmail.com"
+          userAvatar="/placeholder.svg?height=80&width=80"
+        />
 
         {/* Main Content Area */}
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 flex-1">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
               <h2 className="text-xl md:text-2xl font-bold flex items-center">
