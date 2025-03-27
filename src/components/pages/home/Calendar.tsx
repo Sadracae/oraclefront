@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { useState } from "react"
@@ -10,7 +11,6 @@ import {
   ChevronRight,
   Plus,
   X,
-  Clock,
   Users,
   CalendarIcon as CalendarIconFull,
 } from "lucide-react"

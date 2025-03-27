@@ -12,12 +12,11 @@ interface SidebarProps {
 
 export function Sidebar({ userName, userEmail, userAvatar }: SidebarProps) {
 
-    const navigate = useNavigate(); // Initialize navigate here
+    const navigate = useNavigate(); 
     const location = useLocation();
     
     const handleLogout = () => {
-        navigate("/"); // Now navigate works because it's initialized
-        // Implement logout logic here
+        navigate("/"); 
     }
     const handleMyTask = () => {
         navigate("/tasks"); // Now navigate works because it's initialized
@@ -72,7 +71,6 @@ const handleCalendar = () => {
             Dashboard
           </Button>
 
-         
 
           <Button onClick={handleSprints} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/sprints" ? "bg-white/30" : ""}`}>
             <CircleDot className="mr-2 h-5 w-5" />
@@ -87,12 +85,6 @@ const handleCalendar = () => {
           <Button onClick={handleMyTask} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/tasks" ? "bg-white/30" : ""}`}>
             <CircleDot className="mr-2 h-5 w-5" />
             My Task
-          </Button>
-          
-
-          <Button variant="ghost" className="w-full justify-start text-white hover:bg-white/20 rounded-xl">
-            <CircleDot className="mr-2 h-5 w-5" />
-            Task Categories
           </Button>
 
           <Button onClick={handleSettings} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/settings" ? "bg-white/30" : ""}`}>

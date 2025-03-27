@@ -25,7 +25,6 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
   const [storyPoints, setStoryPoints] = useState<string>("5")
   const [title, setTitle] = useState<string>("")
   const [description, setDescription] = useState<string>("")
-  const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string | null>(null)
 
   
@@ -34,7 +33,6 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null
     if (file) {
-      setImage(file)
       const reader = new FileReader()
       reader.onloadend = () => {
         setImagePreview(reader.result as string)
@@ -47,7 +45,6 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
     e.preventDefault()
     const file = e.dataTransfer.files?.[0] || null
     if (file) {
-      setImage(file)
       const reader = new FileReader()
       reader.onloadend = () => {
         setImagePreview(reader.result as string)
@@ -84,7 +81,6 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
     setPriority("Moderate")
     setStoryPoints("5")
     setDescription("")
-    setImage(null)
     setImagePreview(null)
 
     // Close dialog
@@ -221,7 +217,6 @@ export function AddTaskDialog({ onAddTask }: AddTaskDialogProps) {
                         size="sm"
                         className="absolute top-0 right-0"
                         onClick={() => {
-                          setImage(null)
                           setImagePreview(null)
                         }}
                       >

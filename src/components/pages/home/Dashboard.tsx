@@ -78,9 +78,7 @@ export default function Dashboard() {
                       <span>•</span>
                       <span>Today</span>
                     </div>
-                    <Button size="sm" variant="ghost" className="text-[#ff6b6b]">
-                      <Plus className="h-4 w-4 mr-1" /> Add task
-                    </Button>
+                    
                   </div>
 
                   {/* Task Items */}
