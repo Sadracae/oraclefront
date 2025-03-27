@@ -1,14 +1,15 @@
-"use client"
 
 import { useState } from "react"
 import { Header } from "@/components/Header"
 import { Sidebar } from "@/components/Sidebar"
 import { Button } from "@/components/ui/button"
-import { Calendar, ChevronDown, ChevronRight, Filter, Plus, Users, CircleDot, Edit, Trash2 } from "lucide-react"
+import { Calendar, ChevronDown, ChevronRight, Users, CircleDot, Edit, Trash2 } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AddTaskDialog } from "@/components/pages/home/AddTask"
+import { AddSprintDialog } from "@/components/pages/home/AddSprint"
+
 
 interface Task {
   id: string
@@ -45,48 +46,27 @@ export default function Sprints() {
   const [activeTab, setActiveTab] = useState("all")
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  
+  const [sprints, setSprints] = useState<SprintType[]>([]);
 
   const handleAddTask = (newTask: Task) => {
-    setTasks((prevTasks) => [...prevTasks, newTask])
-  }
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  };
   
+  
+  const handleAddSprint = (newSprint: SprintType) => {
+    setSprints((prevSprints) => [...prevSprints, newSprint])
+  }
 
   const currentTask = tasks.find((task) => task.id === selectedTask);
 
-  const sprintsData: SprintType[] = [
-    {
-      id: "sprint1",
-      name: "Sprint 1: User Authentication",
-      startDate: "01/07/2023",
-      endDate: "14/07/2023",
-      progress: 100,
-      status: "Completed",
-      tasks: [],
-    },
-    {
-      id: "sprint2",
-      name: "Sprint 2: Dashboard & Analytics",
-      startDate: "29/07/2023",
-      endDate: "11/08/2023",
-      progress: 0,
-      status: "Planned",
-      tasks: [],
-    },
-    {
-      id: "sprint3",
-      name: "Sprint 3: Dashboard & Analytics",
-      startDate: "29/07/2023",
-      endDate: "11/08/2023",
-      progress: 0,
-      status: "Planned",
-      tasks: [],
-    },
-  ]
+
+
+
 
   const filteredSprints =
-    activeTab === "all" ? sprintsData : sprintsData.filter((sprint) => sprint.status.toLowerCase() === activeTab)
+    activeTab === "all" ? sprints : sprints.filter((sprint) => sprint.status.toLowerCase() === activeTab)
+
+  
 
   const toggleSprint = (sprintId: string) => {
     if (expandedSprint === sprintId) {
@@ -128,21 +108,14 @@ export default function Sprints() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <div>
               <h2 className="text-xl md:text-2xl font-bold flex items-center">
-                <div className="mr-2 h-6 w-6 text-[#ff6767]" />
+                
                 Sprints
               </h2>
               <p className="text-gray-500 mt-1">Manage your project sprints and associated tasks</p>
             </div>
 
             <div className="flex items-center gap-2 mt-2 md:mt-0">
-              <Button variant="outline" size="sm" className="rounded-lg border-gray-200">
-                <Filter className="h-4 w-4 mr-1" />
-                Filter
-              </Button>
-              <Button className="bg-[#ff6767] hover:bg-[#ff5252] rounded-lg" size="sm">
-                <Plus className="h-4 w-4 mr-1" />
-                New Sprint
-              </Button>
+              <AddSprintDialog onAddSprint={handleAddSprint} />
             </div>
           </div>
 
@@ -162,11 +135,16 @@ export default function Sprints() {
               <div className="space-y-4">
                 {filteredSprints.map((sprint) => (
                   <div key={sprint.id} className="border rounded-lg overflow-hidden">
+                    
                     <div
                       className="p-4 bg-gray-50 flex flex-col md:flex-row justify-between items-start md:items-center cursor-pointer"
-                      onClick={() => toggleSprint(sprint.id)}
+                      onClick={() => {console.log(sprint.id);
+                        toggleSprint(sprint.id);
+                        }}
                     >
-                      <div className="flex items-center">
+                      <div
+
+                      className="flex items-center">
                         {expandedSprint === sprint.id ? (
                           <ChevronDown className="h-5 w-5 text-gray-500 mr-2" />
                         ) : (
@@ -204,10 +182,13 @@ export default function Sprints() {
                         <div className="">
                           
                           <div className="bg-white rounded-xl p-6 shadow-sm">
-                            <div className="py-2"><AddTaskDialog onAddTask={handleAddTask} /></div>
+                            <div className="mb-2">
+                              <AddTaskDialog onAddTask={(task) => handleAddTask({ ...task, sprintName: sprint.name})} /></div>
 
                             <div className="space-y-11">
-                              {tasks.map((task) => (
+                              {tasks
+                              .filter((task) => task.sprintName === sprint.name)
+                              .map((task) => (
                                 
                                 <div
                                   
