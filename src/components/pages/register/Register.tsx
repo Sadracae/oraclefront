@@ -1,3 +1,4 @@
+///Users/santosa/Documents/GitHub/oraclefront/src/components/pages/register/Register.tsx
 "use client"
 import { useNavigate } from "react-router-dom" 
 import type React from "react"
@@ -46,11 +47,11 @@ export default function Register() {
 
   }
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Add your registration logic here
+    e.preventDefault();
+    localStorage.setItem("userData", JSON.stringify(formData)); // Guardar en localStorage
     navigate("/dashboard");
-  }
+  };
+  
 
   return (
     <div className="min-h-screen bg-[#ff6767] flex items-center justify-center p-4 bg-pattern">

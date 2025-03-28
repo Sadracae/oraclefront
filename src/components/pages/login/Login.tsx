@@ -1,3 +1,4 @@
+///Users/santosa/Documents/GitHub/oraclefront/src/components/pages/login/Login.tsx
 "use client"
 
 import type React from "react"
@@ -40,11 +41,21 @@ export default function Login() {
   }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Login submitted:", formData)
-    // Add your login logic here
-    navigate("/dashboard")
-  }
+    e.preventDefault();
+    const storedData = localStorage.getItem("userData");
+    if (storedData) {
+      const user = JSON.parse(storedData);
+      if (user.username === formData.username && user.password === formData.password) {
+        localStorage.setItem("isLoggedIn", "true"); // Guardar estado de sesión
+        navigate("/dashboard");
+      } else {
+        alert("Invalid username or password");
+      }
+    } else {
+      alert("User not found");
+    }
+  };
+  
 
   return (
     <div className="min-h-screen bg-[#ff6767] flex items-center justify-center p-4 bg-pattern">
