@@ -1,67 +1,71 @@
+///Users/santosa/Documents/GitHub/oraclefront/src/components/Sidebar.tsx
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { CircleDot, LayoutGrid, LogOut, Settings } from "lucide-react"
 import { useNavigate, useLocation } from 'react-router-dom';
 
+export function Sidebar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    profilePicture: "",
+  });
 
-interface SidebarProps {
-  userName: string
-  userEmail: string
-  userAvatar?: string
-}
+  useEffect(() => {
+    const loadUserData = () => {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setUserData(JSON.parse(storedData));
+      }
+    };
 
-export function Sidebar({ userName, userEmail, userAvatar }: SidebarProps) {
+    loadUserData();
+    window.addEventListener("userDataUpdated", loadUserData);
 
-    const navigate = useNavigate(); 
-    const location = useLocation();
-    
-    const handleLogout = () => {
-        navigate("/"); 
-    }
-    const handleMyTask = () => {
-        navigate("/tasks"); // Now navigate works because it's initialized
-        // Implement logout logic here
+    return () => {
+      window.removeEventListener("userDataUpdated", loadUserData);
+    };
+  }, []);
 
-    }
+  const handleLogout = () => {
+    navigate("/");
+  };
 
-    const handleDashboard = () => {
-      navigate("/dashboard"); // Now navigate works because it's initialized
-      // Implement logout logic here
+  const handleMyTask = () => {
+    navigate("/tasks");
+  };
 
-  }
+  const handleDashboard = () => {
+    navigate("/dashboard");
+  };
+
   const handleSettings = () => {
-    navigate("/settings"); // Now navigate works because it's initialized
-    // Implement logout logic here
+    navigate("/settings");
+  };
 
-}
-const handleSprints = () => {
-  navigate("/sprints"); // Now navigate works because it's initialized
-  // Implement logout logic here
+  const handleSprints = () => {
+    navigate("/sprints");
+  };
 
-}
-const handleCalendar = () => {
-  navigate("/calendar"); // Now navigate works because it's initialized
-  // Implement logout logic here
-
-}
-
-    
+  const handleCalendar = () => {
+    navigate("/calendar");
+  };
 
   return (
-
     <div className="hidden md:flex w-64 bg-[#ff6b6b] text-white flex-col">
       <div className="p-6 flex flex-col items-center text-center">
         <Avatar className="w-20 h-20 border-2 border-white">
-          <AvatarImage src={userAvatar || "/placeholder.svg?height=80&width=80"} alt={userName} />
+          <AvatarImage src={userData.profilePicture || "/placeholder.svg?height=80&width=80"} alt={`${userData.firstName} ${userData.lastName}`} />
           <AvatarFallback>
-            {userName
-              .split(" ")
-              .map((n) => n[0])
-              .join("")}
+            {userData.firstName.charAt(0)}{userData.lastName.charAt(0)}
           </AvatarFallback>
         </Avatar>
-        <h3 className="mt-2 font-semibold text-lg">{userName}</h3>
-        <p className="text-xs text-white/80">{userEmail}</p>
+        <h3 className="mt-2 font-semibold text-lg">{userData.firstName} {userData.lastName}</h3>
+        <p className="text-xs text-white/80">{userData.email}</p>
       </div>
 
       <nav className="flex-1 px-4">
@@ -70,7 +74,6 @@ const handleCalendar = () => {
             <LayoutGrid className="mr-2 h-5 w-5" />
             Dashboard
           </Button>
-
 
           <Button onClick={handleSprints} variant="ghost" className={`w-full justify-start text-white hover:bg-white/20 rounded-xl ${location.pathname === "/sprints" ? "bg-white/30" : ""}`}>
             <CircleDot className="mr-2 h-5 w-5" />
@@ -91,8 +94,6 @@ const handleCalendar = () => {
             <Settings className="mr-2 h-5 w-5" />
             Settings
           </Button>
-
-         
         </div>
       </nav>
 
