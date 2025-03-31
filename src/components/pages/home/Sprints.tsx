@@ -98,9 +98,7 @@ export default function Sprints() {
       <div className="flex flex-1">
         {/* Sidebar */}
         <Sidebar
-          userName="Sadrac Aramburo"
-          userEmail="sundargurung360@gmail.com"
-          userAvatar="/placeholder.svg?height=80&width=80"
+
         />
 
         {/* Main Content Area */}
